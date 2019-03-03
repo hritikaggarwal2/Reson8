@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>DEMO</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<link href="https://fonts.googleapis.com/css?family=Montserrat:300" rel="stylesheet">
+	<script src="https://www.gstatic.com/firebasejs/5.7.3/firebase.js"></script>
+	<script>
+		// Initialize Firebase
+		var config = {
+			apiKey: "AIzaSyD2TTHsH6YoRfReoI-rTQ1X2Hjv96J_Zys",
+			authDomain: "reson8-ba137.firebaseapp.com",
+			databaseURL: "https://reson8-ba137.firebaseio.com",
+			projectId: "reson8-ba137",
+			storageBucket: "reson8.hritikaggarwal.com",
+			messagingSenderId: "350535272208"
+		};
+		firebase.initializeApp(config);
+
+	</script>
+
+	<script type="text/javascript">
+		$(document).ready(function(){
+
+			
+
+			$("#enter").focus();
+
+			var blink = setInterval(function(){
+				$(".text").fadeTo(500, 0.4,
+					function(){
+						$(".text").fadeTo(500, 1);
+					});
+			},1000);
+
+			$(window).keypress(function(e){
+				var keycode = e.keyCode;
+				if (keycode == 49) {
+			        command = "Hi, Alexa"   // fist
+			    } else if (keycode == 50) {
+			        command = "Hello there"  //waveOut
+			    } else if (keycode == 51) {
+			        command = "What is the weather?"   //waveIn
+			    } else if (keycode == 52) {
+			        command = "Give me a cupcake recipe"    //fingersStretch
+			    } else {
+			    	return false;
+			    }
+
+			    $(".text").html(command);
+			    firebase.database().ref("MSG").set(command);
+			});
+
+		});
+	</script>
+
+	<style type="text/css">
+	* {
+		margin: 0;
+		padding: 0;
+		transition: .2s ease;
+	}
+
+	body, html {
+		background: #fff;
+		width: 100%;
+		height: 100%;
+		display: flex;
+		justify-content: center;
+	}
+
+	#enter {
+		background: none;
+		outline: none;
+		border: none;
+		cursor: default;
+		border: none;
+		color: transparent;
+		text-shadow: 0 0 0 gray;
+		text-align: center;
+		position: fixed;
+		opacity: 0;
+	}
+
+	h1 {
+		font-size: 6em;
+		font-family: Montserrat;
+		align-self: center;
+	}
+
+
+</style>
+</head>
+<body>
+	<h1 class="text">Resonate Something...</h1>
+	<input type="text" name="input" id="enter">
+</body>
+</html>
